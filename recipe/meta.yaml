@@ -6,18 +6,18 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/top2vec-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/top2vec-{{ version }}.tar.gz
   sha256: cd6ffc093b6ac2e24140df91e68b7332be013a969815d75714ebd06b3a022de7
 
 build:
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
-  number: 0
+  number: 1
 
 requirements:
   host:
     - pip
-    - python >=3.6
+    - python {{ python_min }}
   run:
     - cython
     - gensim <4.0.0
@@ -25,7 +25,7 @@ requirements:
     - hdbscan >=0.8.27
     - numpy >=1.20.0
     - pandas
-    - python >=3.6
+    - python >={{ python_min }}
     - umap-learn >=0.5.1
     - wordcloud
 
@@ -37,6 +37,7 @@ test:
     - pip check
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://github.com/ddangelov/Top2Vec
